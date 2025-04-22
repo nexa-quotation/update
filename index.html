@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEXA Quotation</title>
+  <style>
+    :root {
+      --primary: #00ffe7;
+      --secondary: #0074ff;
+      --background: #111;
+      --card: #1e1e1e;
+      --text: #f5f5f5;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+
+    @media screen {
+      body {
+        background-color: var(--background);
+        color: var(--text);
+      }
+
+      .header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: #000;
+        padding: 25px;
+        font-size: 30px;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 20px rgba(0, 255, 231, 0.3);
+        animation: fadeSlideDown 0.8s ease-out;
+      }
+
+      .container {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 6px 25px rgba(0, 255, 231, 0.05);
+        animation: fadeSlideUp 1s ease-out;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fieldFadeIn 0.6s forwards;
+        animation-delay: calc(var(--i, 0) * 0.05s);
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #333;
+        background: #2a2a2a;
+        color: var(--text);
+        border-radius: 6px;
+        box-sizing: border-box;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 6px var(--primary);
+        outline: none;
+      }
+
+      button {
+        background: var(--primary);
+        color: #000;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        margin-top: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 6px;
+        text-transform: uppercase;
+        transition: transform 0.2s ease, background 0.3s ease;
+      }
+
+      button:hover {
+        transform: scale(1.03);
+        background: var(--secondary);
+        color: white;
+      }
+
+      .stamp-preview {
+        max-width: 180px;
+        max-height: 120px;
+        margin-top: 10px;
+        display: none;
+        animation: fadeIn 0.6s ease-in;
+      }
+
+      #output {
+        display: none;
+        background: white;
+        padding: 20px;
+        margin-top: 10px;
+        border-radius: 5px;
+        color: black;
+        page-break-inside: avoid;
+      }
+
+      @keyframes fadeSlideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeSlideDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fieldFadeIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+    }
+
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+        font-family: Arial, sans-serif;
+      }
+
+      .header,
+      .container,
+      #quotationForm {
+        display: none !important;
+      }
+
+      #output {
+        display: block !important;
+        color: black !important;
+        background: white !important;
+        padding: 0;
+        margin: 0;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+
+      #output * {
+        color: black !important;
+        background: none !important;
+      }
+
+      img {
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">NEXA  QUOTATION</div>
+  <div class="container">
+    <form id="quotationForm">
+      <!-- Label order animations -->
+      <label style="--i:1">Customer Contact Number: <input name="customer_contact" type="tel" required /></label>
+      <label style="--i:2">Customer Name: <input name="customer" required /></label>
+      <label style="--i:3">Date: <input type="date" name="date" required /></label>
+      <label style="--i:4">Model: <input name="model" required /></label>
+      <label style="--i:5">Variant: <input name="variant" required /></label>
+      <label style="--i:6">Color: <input name="color" required /></label>
+      <label style="--i:7">Ex-Showroom: <input name="exshowroom" type="number" required /></label>
+      <label style="--i:8">1% TCS: <input name="tcs" type="number" required /></label>
+      <label style="--i:9">Insurance: <input name="insurance" type="number" required /></label>
+      <label style="--i:10">RTO: <input name="rto" type="number" required /></label>
+      <label style="--i:11">Warranty: <input name="warranty" type="number" /></label>
+      <label style="--i:12">Accessories: <input name="accessories" type="number" /></label>
+      <label style="--i:13">Rewards: <input name="rewards" type="number" /></label>
+      <label style="--i:14">FASTag: <input name="fastag" type="number" /></label>
+      <label style="--i:15">Consumer Offer: <input name="consumer" type="number" /></label>
+      <label style="--i:16">Retail Offer: <input name="retail" type="number" /></label>
+      <label style="--i:17">Corporate / GST Offer: <input name="corporate" type="number" /></label>
+      <label style="--i:18">Booking Discount: <input name="booking" type="number" /></label>
+      <label style="--i:19">Exchange Offer: <input name="exchange" type="number" /></label>
+      <label style="--i:20">Delivery Timeline: <input name="delivery" placeholder="e.g. 2 to 3 weeks" required /></label>
+      <label style="--i:21">Relationship Manager: <input name="rm" required /></label>
+      <label style="--i:22">Mobile Number: <input name="mobile" required /></label>
+      <label style="--i:23">Upload Stamp (Optional): <input type="file" id="stampUpload" accept="image/*" /></label>
+      <img id="stampPreview" class="stamp-preview" alt="Stamp preview" />
+      <button type="submit">Generate Quotation</button>
+    </form>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    document.getElementById("stampUpload").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          const preview = document.getElementById("stampPreview");
+          preview.src = event.target.result;
+          preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById("quotationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      const dateObj = new Date(data.date);
+      const formattedDate = `${String(dateObj.getDate()).padStart(2, "0")}/${String(dateObj.getMonth() + 1).padStart(2, "0")}/${dateObj.getFullYear()}`;
+
+      const total = ["exshowroom", "tcs", "insurance", "rto", "warranty", "accessories", "rewards", "fastag"].reduce(
+        (sum, key) => sum + (Number(data[key]) || 0),
+        0
+      );
+
+      const net = total - ["consumer", "retail", "corporate", "booking", "exchange"].reduce(
+        (sum, key) => sum + (Number(data[key]) || 0),
+        0
+      );
+
+      const stampUpload = document.getElementById("stampUpload");
+      let stampHTML = "";
+      if (stampUpload.files.length > 0) {
+        stampHTML = `<img src="${URL.createObjectURL(stampUpload.files[0])}" style="max-width:180px; max-height:120px;" alt="Stamp" />`;
+      }
+
+      document.getElementById("output").innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <img src="https://i.ibb.co/qYrZVV2c/1000001405-removebg-preview.png" style="width: 40%;" />
+          <img src="https://i.ibb.co/2YNzCJFn/1000001598-removebg-preview.png" style="width: 40%;" />
+        </div>
+        <h2 style="text-align:center; margin: 20px 0;">QUOTATION</h2>
+        <p><strong>To:</strong> ${data.customer}</p>
+        <p><strong>Date:</strong> ${formattedDate}</p>
+        <p><strong>MODEL:</strong> ${data.model} | <strong>VARIANT:</strong> ${data.variant} | <strong>COLOR:</strong> ${data.color}</p>
+        <table border="1" cellspacing="0" cellpadding="8" style="width:100%; font-size: 14px;">
+          <tr><td><strong>EX-SHOWROOM:</strong> ₹${Number(data.exshowroom).toLocaleString("en-IN")}</td><td><strong>Consumer Offer:</strong> ₹${Number(data.consumer).toLocaleString("en-IN")}</td></tr>
+          <tr><td><strong>1% TCS:</strong> ₹${Number(data.tcs).toLocaleString("en-IN")}</td><td><strong>Retail Offer:</strong> ₹${Number(data.retail).toLocaleString("en-IN")}</td></tr>
+          <tr><td><strong>Insurance:</strong> ₹${Number(data.insurance).toLocaleString("en-IN")}</td><td><strong>Corporate Offer:</strong> ₹${Number(data.corporate).toLocaleString("en-IN")}</td></tr>
+          <tr><td><strong>RTO:</strong> ₹${Number(data.rto).toLocaleString("en-IN")}</td><td><strong>Booking Discount:</strong> ₹${Number(data.booking).toLocaleString("en-IN")}</td></tr>
+          <tr><td><strong>Warranty:</strong> ₹${Number(data.warranty).toLocaleString("en-IN")}</td><td><strong>Exchange Offer:</strong> ₹${Number(data.exchange).toLocaleString("en-IN")}</td></tr>
+          <tr><td><strong>Accessories:</strong> ₹${Number(data.accessories).toLocaleString("en-IN")}</td><td></td></tr>
+          <tr><td><strong>Rewards:</strong> ₹${Number(data.rewards).toLocaleString("en-IN")}</td><td></td></tr>
+          <tr><td><strong>FASTag:</strong> ₹${Number(data.fastag).toLocaleString("en-IN")}</td><td></td></tr>
+          <tr><td><strong>Total Amount:</strong> ₹${total.toLocaleString("en-IN")}</td><td><strong>Net Invoice Value:</strong> ₹${net.toLocaleString("en-IN")}</td></tr>
+        </table>
+        <p>Delivery of Vehicle within ${data.delivery} from date of booking.</p>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px;">
+          <div>
+            <p><strong>Relationship Manager:</strong> ${data.rm}</p>
+            <p><strong>Mobile Number:</strong> ${data.mobile}</p>
+          </div>
+          <div>${stampHTML}</div>
+        </div>
+      `;
+
+      // Email via formsubmit silently
+      fetch("https://formsubmit.co/ajax/rahulsinghcore999@gmail.com", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          _subject: "New Quotation Submitted",
+          ...data,
+          total_amount: total,
+          net_invoice: net
+        })
+      });
+
+      // Trigger print
+      setTimeout(() => window.print(), 500);
+    });
+  </script>
+</body>
+</html>
